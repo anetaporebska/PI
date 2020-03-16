@@ -1,0 +1,36 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    
+    int n=0;
+    scanf("%d",&n);
+    
+    int *tab;
+    tab=(int*)malloc(sizeof(tab)*n);
+    
+    int sumAll=0;
+    for(int i=0; i<n; i+=1){
+        scanf("%d", &tab[i]);
+        sumAll+=tab[i];
+    }
+    
+    int s1=0;
+    sumAll-=tab[0];
+    if(s1==sumAll){
+        printf("%d",0);
+    }
+    for(int i=1; i<n; i+=1){
+        sumAll-=tab[i];
+        s1+=tab[i-1];
+        if (s1==sumAll){
+            printf("%d",i);
+            free(tab);
+            return 0;
+        }
+    }
+
+    return 0;
+}
