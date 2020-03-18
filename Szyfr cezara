@@ -1,0 +1,57 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+
+int main()
+{
+   
+    char tekst[100];
+    
+    fgets(tekst, sizeof tekst, stdin);
+    int s=0;
+    int i=0;
+    
+    while(tekst[i]<'A' || (tekst[i]>'Z' && tekst[i]<'a') || tekst[i]>'z'){
+        i+=1;
+    }
+    
+    while(tekst[i]!=' ' && tekst[i]!='\0' && tekst[i]!='\n'){
+        s+=1;
+        i+=1;
+    }
+    
+   
+    
+    i=0;
+    while(i<strlen(tekst)){
+        
+        if(tekst[i]<='Z' && tekst[i]>='A'){
+            if(tekst[i]+s>'Z'){
+                tekst[i]=tekst[i]-26+s;
+            }
+            else{
+                tekst[i]+=s;
+            }
+        }
+        if(tekst[i]<='z' && tekst[i]>='a'){
+            if(tekst[i]+s>'z'){
+                tekst[i]=tekst[i]-26+s;
+            }            
+            else{
+                tekst[i]+=s;
+            }    
+        }
+        i+=1;
+    }    
+    
+    
+    for(int i=0; i<strlen(tekst); i+=1){
+        printf("%c",tekst[i]);
+    }
+
+    
+    return 0;
+}
