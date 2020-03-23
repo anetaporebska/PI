@@ -1,0 +1,99 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void swap(int *a, int *b);
+
+void heapify(int arr[], int size, int i);
+
+void heapSort(int arr[], int size);
+
+int main()
+{
+    int z=0;
+    scanf("%d",&z);
+    
+    int *N;         //tablica z wartościami n, przechwowuje długości każego
+    N=(int*)malloc(sizeof(N)*z);
+    
+    int idx=0;
+    int d=0;
+    int *arr=NULL;
+    for(int j=0; j<z; j+=1){
+        
+        int n=0;
+        scanf("%d",&n); 
+        N[j]=n;
+        d+=n;
+        arr=(int*)realloc(arr,sizeof(arr)*d);
+        for(int i=0; i<n; i+=1){
+            scanf("%d",&arr[idx]);
+            idx+=1;
+        }
+        
+        
+    }
+    
+    int p=0;
+    for(int i=0; i<z; i+=1){
+        int n=N[i];
+        
+        int *T;
+        T=(int*)malloc(sizeof(T)*(n+1));
+        T[0]=n;
+        for(int j=1; j<n+1; j+=1){
+            T[j]=arr[p];
+            p+=1;
+        }
+        heapSort(T,n);
+        for(int j=1; j<n+1; j+=1){
+            printf("%d \n", T[j]);
+        }
+        free(T);
+    }
+    
+    
+    free(arr);
+    free(N);
+    
+    return 0;
+}
+
+void swap(int *a, int *b){
+    int h=*a;
+    *a=*b;
+    *b=h;
+}
+
+void heapify(int arr[], int size, int i){
+    int mx=i;
+    int l=2*i;
+    int r=2*i+1;
+    
+    if (l<=size && arr[l]>arr[mx]){
+        mx=l;
+    }
+    
+    if (r<=size && arr[r]>arr[mx]){
+        mx=r;
+    }
+    
+    if(mx != i){
+        swap(&arr[i],&arr[mx]);
+        heapify(arr,size,mx);
+    }
+    
+}
+
+void heapSort(int arr[], int size){
+    for (int i=size/2; i>=1; i-=1){
+        heapify(arr,size,i);
+    }
+    for (int i=size; i>0; i-=1){
+        swap(&arr[1],&arr[i]);
+        heapify(arr,i-1,1);
+    }
+    
+}
+
+
