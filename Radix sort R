@@ -1,0 +1,111 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void countingSort(int arr[], int ex, int size);
+void radixSort(int arr[], int k, int size);
+
+
+int main()
+{
+    int z=0;
+    scanf("%d",&z);
+    
+    int *N;         //tablica z wartościami n, przechwowuje długości każego
+    N=(int*)malloc(sizeof(N)*z);
+    int *K;         //tablica z k - ilu cyfrowe są liczby
+    K=(int*)malloc(sizeof(K)*z);
+    
+    int idx=0;
+    int d=0;
+    int *arr=NULL;
+    for(int j=0; j<z; j+=1){
+        
+        int n=0;
+        scanf("%d",&n); 
+        N[j]=n;
+        int k=0;
+        scanf("%d",&k);
+        K[j]=k;
+        d+=n;
+        arr=(int*)realloc(arr,sizeof(arr)*d);
+        for(int i=0; i<n; i+=1){
+            scanf("%d",&arr[idx]);
+            idx+=1;
+        }
+        
+        
+    }
+    
+    int p=0;
+    for(int i=0; i<z; i+=1){
+        int n=N[i];
+        int k=K[i];
+        
+        int *T;
+        T=(int*)malloc(sizeof(T)*(n));
+        for(int j=0; j<n; j+=1){
+            T[j]=arr[p];
+            p+=1;
+        }
+        radixSort(T,k,n);
+        for(int j=0; j<n; j+=1){
+            printf("%d \n", T[j]);
+        }
+        free(T);
+    }
+    
+    
+    free(arr);
+    free(N);
+    
+    return 0;
+}
+
+
+
+void countingSort(int arr[], int ex, int size){
+    
+    int *count;
+    count=(int*)malloc(sizeof(count)*10);
+    for(int i=0; i<10; i+=1){
+        count[i]=0;
+    }
+    
+    for(int i=0; i<size; i+=1){
+        int idx=arr[i]/ex;
+        count[idx%10]+=1;
+    }
+    
+    for(int i=1; i<10; i+=1){
+        count[i]+=count[i-1];
+    }
+    
+    int *output;
+    output=(int*)malloc(sizeof(output)*size);
+    
+    for(int i=size-1; i>=0; i-=1){
+        int idx=arr[i]/ex;
+        output[count[idx%10]-1]=arr[i];
+        count[idx%10]-=1;
+    }
+    
+    for(int i=0; i<size; i+=1){
+        arr[i]=output[i];
+    }
+    free(output);
+    free(count);
+    
+}
+
+
+void radixSort(int arr[], int k, int size){
+    int ex=1;
+    
+    for(int i=0; i<k; i+=1){
+        countingSort(arr,ex,size);
+        ex*=10;
+    }
+    
+}
+
