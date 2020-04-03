@@ -1,0 +1,65 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+
+int main()
+{
+    int n=0;
+    scanf("%d",&n);
+    int k=0;
+    scanf("%d",&k);
+
+    int *stack;
+    stack=malloc(sizeof(stack)*(n+1));
+
+    char *input;
+    int d=2*n-1;
+    input=malloc(sizeof(input)*(k));
+    int i=0;
+    int top=-1;
+    for(int i=0; i<d; i+=1){
+
+        scanf("%s",input);
+
+        if(input[0]=='+'){
+            int a=stack[top];
+            top-=1;
+            stack[top]+=a;
+        }
+        else if(input[0]=='-') {
+            int a=stack[top];
+            top-=1;
+            stack[top]-=a;
+        }
+        else if(input[0]=='*') {
+            int a=stack[top];
+            top-=1;
+            stack[top]*=a;
+        }
+        else if(input[0]=='/'){
+            int a=stack[top];
+            top-=1;
+            stack[top]/=a;
+        }
+        else{
+            int add=atoi(input);
+            top+=1;
+            stack[top]=add;
+        }
+
+
+    }
+
+
+    printf("%d",stack[top]);
+    free(stack);
+    free(input);
+
+
+
+
+    return 0;
+}
