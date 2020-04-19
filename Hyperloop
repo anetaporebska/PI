@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+void pol(int n,int G[n][n],int x,int y){
+
+    int *visited;
+    visited=malloc(sizeof(visited)*n);
+    for(int i=0; i<n; i+=1){
+        visited[i]=0;
+    }
+
+    int *queue;
+    queue=malloc(sizeof(queue)*n);
+    int end=1;
+    queue[0]=x;
+    int front=0;
+    while(front!=end){
+        int u=queue[front];
+        visited[u]=1;
+        front+=1;
+        if (front==n){
+            front=0;
+        }
+        if(u==y){
+            printf("YES\n");
+            free(queue);
+            free(visited);
+            return;
+        }
+        for(int i=0; i<n; i+=1){
+            if(G[u][i]==1 && visited[i]==0){
+                queue[end]=i;
+                end+=1;
+                if(end==n){
+                    end=0;
+                }
+            }
+
+        }
+    }
+    printf("NO\n");
+    free(queue);
+    free(visited);
+
+}
+
+
+
+int main()
+{
+
+    int n;
+    scanf("%d",&n);
+    int G[n][n];
+    for(int i=0; i<n; i+=1){
+        for(int j=0; j<n; j+=1){
+            G[i][j]=0;
+        }
+    }
+    int k;
+    scanf("%d",&k);
+    int p;
+    scanf("%d",&p);
+    int x;
+    int y;
+    for(int i=0; i<k; i+=1){
+        scanf("%d %d", &x, &y);
+        G[x][y]=1;
+        G[y][x]=1;
+    }
+
+    for(int i=0; i<p; i+=1){
+        scanf("%d %d", &x, &y);
+        pol(n,G,x,y);
+    }
+
+
+    return 0;
+}
