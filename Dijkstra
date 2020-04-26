@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+int minDistance(int n, int G[n][n], int dist[], int set[]){
+    int m=INT8_MAX;
+    int m_idx;
+    for(int i=0; i<n; i+=1){
+        if(dist[i]<m && set[i]==0){
+            m=dist[i];
+            m_idx=i;
+        }
+    }
+    return m_idx;
+}
+
+void dijkstra(int n, int G[n][n], int b, int e){
+    int dist[n];
+    int set[n];
+    for(int i=0; i<n; i+=1){
+        dist[i]=INT8_MAX;
+        set[i]=0;
+    }
+    dist[b]=0;
+    for(int i=0; i<n-1; i+=1){
+        int u=minDistance(n,G,dist,set);
+        set[u]=1;
+        for(int v=0; v<n; v+=1){
+            if (G[u][v]>0 && set[v]==0 && dist[v]>dist[u]+G[u][v] && dist[u]!=INT8_MAX){
+                dist[v]=dist[u]+G[u][v];
+            }
+        }
+
+    }
+    printf("%d",dist[e]);
+}
+
+
+int main()
+{
+    int n;
+    int k;
+    scanf("%d %d", &n, &k);
+    int G[n][n];
+    int b;
+    int e;
+    scanf("%d %d",&b, &e);
+
+    while (k--){
+        int x;
+        int y;
+        int d;
+        scanf("%d %d %d", &x,&y,&d);
+        G[x][y]=d;
+        G[y][x]=d;
+
+    }
+    dijkstra(n,G,b,e);
+    return 0;
+}
