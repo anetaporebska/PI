@@ -14,7 +14,7 @@ int main()
     char *block;
     block=malloc(sizeof(block)*17);
     for(int i=0; i<n; i+=1){
-        numbers[i]=block+i*(17);
+        numbers[i]=block+i*(17);        //Aneta, prosze powiedz, jak to dziala. Ja ne panemaju :c
     }
 
     int *t;
@@ -29,12 +29,12 @@ int main()
     int la=0;
     int lr=0;
     while(n>0){
-        char* type='a';
+        char* type='a';     //czemu wskaznik? I czemu przypisanie od razu? Zwlaszcza ze inicjalizacja zmiennej byla w 9 linii
         scanf("%s",&type);
-
+                            //prawdopodobnie przydatne czyszczenie bufora
         if(type=='a'){
             scanf("%d",&t[i]);
-            scanf("%s",numbers[i]);
+            scanf("%s",numbers[i]);     //tutaj tez radze wyczyscic bufor
             i+=1;
             la+=1;
         }
@@ -56,7 +56,7 @@ int main()
     top=0;
     for(int i=0; i<la && i<lr; i+=1){
         printf("%s ",numbers[top]);
-        printf("%d \n",tr[i]);
+        printf("%d \n",tr[i]);      //Nie wiem, czy sprawdzarka nie moze czepic sie tego bialego znaku miedzy wartoscia a nowa linia xD
         top+=1;
     }
 
